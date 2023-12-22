@@ -8,8 +8,28 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
-export default {
-	async fetch(request, env, ctx) {
-		return new Response('Hello World!');
-	},
-};
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request));
+});
+
+async function handleRequest(request) {
+  const gitRepoURL = 'https://raw.githubusercontent.com/Unofficial-BlossomCraft-Wikis';
+  const requestURL = new URL(request.url);
+  let path = requestURL.pathname;
+
+  // Remove '/blob' from the path
+  path = path.replace('/blob', '');
+
+  // Construct the Git URL based on the request path
+  const gitFetchURL = `${gitRepoURL}${path}`;
+
+  // Fetch content from Git
+  const gitResponse = await fetch(gitFetchURL);
+
+  // Return the Git response
+  return new Response(gitResponse.body, {
+    status: gitResponse.status,
+    statusText: gitResponse.statusText,
+    headers: gitResponse.headers,
+  });
+}
