@@ -14,7 +14,7 @@ addEventListener('fetch', event => {
 
 async function handleRequest(request) {
   // new url: https://cdn.jsdelivr.net/gh/Unofficial-BlossomCraft-Wikis: https://cdn.jsdelivr.net/gh/Unofficial-BlossomCraft-Wikis/SigmaBlossom@main/dist/css/sigma.min.css
-  const gitRepoURL = 'https://cdn.jsdelivr.net/gh/Unofficial-BlossomCraft-Wikis/';
+  const gitRepoURL = 'https://cdn.jsdelivr.net/gh/Unofficial-BlossomCraft-Wikis';
   const requestURL = new URL(request.url);
   let path = requestURL.pathname;
 
